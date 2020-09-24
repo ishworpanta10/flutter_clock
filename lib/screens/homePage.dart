@@ -20,20 +20,10 @@ class HomePage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FlatButton(
-                  onPressed: () {},
-                  child: Column(
-                    children: [
-                      FlutterLogo(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        "Clock",
-                        style: TextStyle(color: Colors.white, fontSize: 14.0),
-                      ),
-                    ],
-                  ))
+              buildMenuButton(icon: Icons.access_alarm, title: 'Clock'),
+              buildMenuButton(icon: Icons.alarm_add, title: 'Alarm'),
+              buildMenuButton(icon: Icons.timer, title: 'Timer'),
+              buildMenuButton(icon: Icons.access_time, title: 'Stopwatch'),
             ],
           ),
           VerticalDivider(
@@ -45,49 +35,113 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
               alignment: Alignment.center,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Clock",
-                    style: TextStyle(fontSize: 24.0, color: Colors.white),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Text(
+                      "Clock",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 24.0,
+                          color: Colors.white),
+                    ),
                   ),
-                  SizedBox(
-                    height: 32.0,
+                  Flexible(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          formatedTime,
+                          style: TextStyle(
+                              // fontWeight: FontWeight.w500,
+                              fontSize: 64.0,
+                              color: Colors.red),
+                        ),
+                        Text(
+                          formatedDate,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20.0,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    formatedTime,
-                    style: TextStyle(fontSize: 64.0, color: Colors.white),
-                  ),
-                  Text(
-                    formatedDate,
-                    style: TextStyle(fontSize: 20.0, color: Colors.white),
-                  ),
-                  ClockView(),
-                  Text(
-                    "Timezone",
-                    style: TextStyle(fontSize: 20.0, color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 16.0,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.language,
-                        color: Colors.white,
+                  Flexible(
+                    flex: 4,
+                    fit: FlexFit.tight,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: ClockView(
+                        size: MediaQuery.of(context).size.height / 4,
                       ),
-                      SizedBox(
-                        width: 16.0,
-                      ),
-                      Text(
-                        "UTC " + offsetSign + timeZoneOffset,
-                        style: TextStyle(fontSize: 18.0, color: Colors.white),
-                      ),
-                    ],
-                  )
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Timezone",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20.0,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.language,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 16.0,
+                            ),
+                            Text(
+                              "UTC " + offsetSign + timeZoneOffset,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 18.0,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildMenuButton({String title, IconData icon}) {
+    return FlatButton(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      onPressed: () {},
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            color: Colors.white,
+            size: 34.0,
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            title,
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
           ),
         ],
       ),
