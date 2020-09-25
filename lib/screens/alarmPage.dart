@@ -2,7 +2,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clock/constants/color.dart';
 import 'package:flutter_clock/data/data.dart';
+import 'package:flutter_clock/main.dart';
 import 'package:flutter_clock/model/alarm_info.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AlarmPage extends StatefulWidget {
   @override
@@ -44,7 +46,9 @@ class _AlarmPageState extends State<AlarmPage> {
                     child: FlatButton(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32.0, vertical: 16.0),
-                      onPressed: () {},
+                      onPressed: () {
+                        scheduleAlarm();
+                      },
                       child: Column(
                         children: [
                           Image.asset(
@@ -70,6 +74,32 @@ class _AlarmPageState extends State<AlarmPage> {
         ],
       ),
     );
+  }
+
+  scheduleAlarm() async {
+    var scheduleNotificationDateTime = DateTime.now().add(Duration(seconds: 5));
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'alarm notification',
+      'alarm notification',
+      'Channel for alarm notification',
+      icon: 'clocklogo',
+      sound: RawResourceAndroidNotificationSound('alarm'),
+      // sound: RawResourceAndroidNotificationSound('slow_spring_board'),
+      largeIcon: DrawableResourceAndroidBitmap('clocklogo'),
+    );
+
+    var iosPlatforChannelSpecifics = IOSNotificationDetails(
+      sound: 'soundname',
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    var platformChannelSpecifies = NotificationDetails(
+        androidPlatformChannelSpecifics, iosPlatforChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.schedule(0, 'Office', "Good Morning",
+        scheduleNotificationDateTime, platformChannelSpecifies);
   }
 
   Widget _buildAlarmTile(AlarmInfo alarm) {
