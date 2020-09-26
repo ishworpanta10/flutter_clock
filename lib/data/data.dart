@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clock/constants/color.dart';
 import 'package:flutter_clock/data/enum.dart';
 import 'package:flutter_clock/model/alarm_info.dart';
 import 'package:flutter_clock/model/menu_info.dart';
@@ -12,20 +11,19 @@ List<MenuInfo> menuItems = [
 ];
 
 List<AlarmInfo> alarmList = [
-  AlarmInfo((DateTime.now().add(Duration(hours: 1))),
-      alarmDescription: "Morning Alaram",
-      isActive: true,
-      gradientColors: GradientColor.sky),
-  AlarmInfo((DateTime.now().add(Duration(hours: 2))),
-      alarmDescription: "Evening Alaram",
-      isActive: true,
-      gradientColors: GradientColor.sunset),
-  AlarmInfo((DateTime.now().add(Duration(hours: 1))),
-      alarmDescription: "Morning Alaram",
-      isActive: true,
-      gradientColors: GradientColor.sky),
-  // AlarmInfo((DateTime.now().add(Duration(hours: 2))),
-  //     alarmDescription: "Evening Alaram",
-  //     isActive: true,
-  //     gradientColors: GradientColor.sunset)
+  AlarmInfo(
+    alarmDateTime: (DateTime.now().add(Duration(hours: 1))),
+    alarmTitle: "Morning Alarm",
+    gradientColorIndex: 0,
+  ),
+  AlarmInfo(
+    alarmDateTime: (DateTime.now().add(Duration(hours: 1))),
+    alarmTitle: "Evening Alarm",
+    gradientColorIndex: 1,
+  ),
+  AlarmInfo(
+    alarmDateTime: (DateTime.now().add(Duration(hours: 1))),
+    alarmTitle: "Demog Alarm",
+    gradientColorIndex: 2,
+  ),
 ];
