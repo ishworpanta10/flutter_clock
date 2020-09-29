@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_clock/screens/clockView.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +9,6 @@ class ClockPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var now = DateTime.now();
     var formatedDate = DateFormat('EEE, d MMM y').format(now);
-    var formatedTime = DateFormat('hh:mm').format(now);
     var timeZoneOffset = now.timeZoneOffset.toString().split('.').first;
     var offsetSign = '';
     if (!timeZoneOffset.startsWith('-')) offsetSign = '+';
@@ -33,12 +34,9 @@ class ClockPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  formatedTime,
-                  style: TextStyle(
-                      // fontWeight: FontWeight.w500,
-                      fontSize: 64.0,
-                      color: Colors.red),
+                DigitalClockWidget(),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Text(
                   formatedDate,
@@ -98,6 +96,43 @@ class ClockPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DigitalClockWidget extends StatefulWidget {
+  @override
+  _DigitalClockWidgetState createState() => _DigitalClockWidgetState();
+}
+
+class _DigitalClockWidgetState extends State<DigitalClockWidget> {
+  var formatedTime = DateFormat('hh:mm aa').format(DateTime.now());
+
+  void initState() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      var previousMinute = DateTime.now().add(Duration(seconds: -1)).minute;
+      var currentMinute = DateTime.now().minute;
+      print(previousMinute.toString());
+      print(currentMinute.toString());
+
+      if (previousMinute != currentMinute)
+        setState(() {
+          formatedTime = DateFormat('hh:mm aa').format(DateTime.now());
+        });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        formatedTime,
+        style: TextStyle(
+            // fontWeight: FontWeight.w500,
+            fontSize: 54.0,
+            color: Colors.white),
       ),
     );
   }

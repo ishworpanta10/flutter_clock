@@ -26,5 +26,10 @@ class GradientTemplate {
     GradientColors(GradientColors.sea),
     GradientColors(GradientColors.mango),
     GradientColors(GradientColors.fire),
+    GradientColors(GradientColors.sky),
+    GradientColors(GradientColors.sunset),
+    GradientColors(GradientColors.sea),
+    GradientColors(GradientColors.mango),
+    GradientColors(GradientColors.fire),
   ];
 }

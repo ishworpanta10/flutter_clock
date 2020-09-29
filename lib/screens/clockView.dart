@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -11,12 +13,12 @@ class ClockView extends StatefulWidget {
 
 class _ClockViewState extends State<ClockView> {
   @override
-  // void initState() {
-  //   Timer.periodic(Duration(seconds: 1), (timer) {
-  //     setState(() {});
-  //   });
-  //   super.initState();
-  // }
+  void initState() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +104,10 @@ class ClockPainter extends CustomPainter {
     canvas.drawLine(center, Offset(minHandX, minHandY), hourHandBrush);
 
     // for sec
-    var secHandX = centerX + radius * 0.6  * cos(dateTime.second * 6 * pi / 180);
-    var secHandY = centerX + radius * 0.6  * sin(dateTime.second * 6 * pi / 180);
+    var secHandX = centerX + radius * 0.6 * cos(dateTime.second * 6 * pi / 180);
+    var secHandY = centerX + radius * 0.6 * sin(dateTime.second * 6 * pi / 180);
     canvas.drawLine(center, Offset(secHandX, secHandY), secHandBrush);
- 
+
     canvas.drawCircle(center, radius * 0.12, centerBrush);
 
     var outerCircleRadius = radius;
